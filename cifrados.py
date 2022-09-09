@@ -1,8 +1,7 @@
+# Importamos la librería del hash
 import hashlib as hl
 
 # Cifrado rot
-
-
 def rotN(mensaje, n):
     # String mensaje
     mensajeCifrado = ""
@@ -32,13 +31,11 @@ abc = [chr(i) for i in range(65, 65 + 26)] * 2
 columnas = abc[:26]
 for i in range(26):
     llaveFila = abc[i]
-    valoresFila = abc[i: i + 26]
+    valoresFila = abc[i : i + 26]
     # Se crea un diccionario gigante que contiene toda la tabla de la forma A:{A:A,B:B} , etc.
     tabla[llaveFila] = dict(zip(columnas, valoresFila))
 
 # Cifrado Vignere
-
-
 def vigenere(mensaje, llave):
     # String del mensaje
     mensajeCifrado = ""
@@ -63,51 +60,17 @@ def vigenere(mensaje, llave):
             contador += 1
     return mensajeCifrado
 
-# Descifrado Vignere
 
-
-def des_vigenere(mensajeCifrado, llave):
-    # String del mensaje
-    mensajeDescifrado = ""
-    contador = 0
-    # Este while es para que en caso de que la llave sea de menor longitud que el mensaje
-    # Se escriba nuevamente hasta que sea de igual o mayor longitud
-    while len(llave) < len(mensajeCifrado):
-        llave += llave
-    # Se recorren todos los caracteres del mensaje
-    # También se deja todo el mensaje en mayúsculas
-    for caracter in mensajeCifrado.upper():
-        # Si el caracter no es alfabético, lo agregamos al string del mensaje
-        if not caracter.isalpha():
-            mensajeDescifrado += caracter
-        # En caso contrario
-        else:
-            # Va tomando letra por letra la clave, en mayúsculas
-            fila = llave[contador].upper()
-            dictFila = tabla[fila]
-            # llaves y valores de la fila diccionario de la tabla
-            llaves = dictFila.keys()
-            valores = dictFila.values()
-            # zip empareja en tuplas, elementos con la misma posicion
-            # se forma diccionario inverso, ya que se busca el caracter
-            # del mensajeDescifrado original, lo que se encuentra como llave del
-            # diccionario original
-            dictFilaInverso = dict(zip(valores, llaves))
-            # Busca en la tabla la letra correspondiente y la agrega al mensaje
-            mensajeDescifrado += dictFilaInverso[caracter]
-            # contador +1
-            contador += 1
-    return mensajeDescifrado
-
-
+# función para hacer el hash
 def hash(mensaje):
-    mensajeHasheado = hl.sha512(mensaje.encode('utf-8'))
+    # Recibimos el mensaje y lo hasheamos con sha512 y codificación utf-8
+    mensajeHasheado = hl.sha512(mensaje.encode("utf-8"))
+    # Lo pasamos a string
     mensajeHasheadoHex = mensajeHasheado.hexdigest()
     return mensajeHasheadoHex
 
-# Función para el desafío 1
 
-
+# Función para la red de cifrados
 def redCifrado(mensaje, password):
     # Primero ciframos el mensaje con el rot 8
     mensajeCifrado = rotN(mensaje, 8)
@@ -115,5 +78,4 @@ def redCifrado(mensaje, password):
     mensajeCifrado = vigenere(mensajeCifrado, password)
     # Luego un cifrado de rot 10, por si las moscas
     mensajeCifrado = rotN(mensajeCifrado, 10)
-    print(mensajeCifrado)
     return mensajeCifrado
