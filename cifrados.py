@@ -1,4 +1,8 @@
+import hashlib as hl
+
 # Cifrado rot
+
+
 def rotN(mensaje, n):
     # String mensaje
     mensajeCifrado = ""
@@ -95,6 +99,12 @@ def des_vigenere(mensajeCifrado, llave):
             contador += 1
     return mensajeDescifrado
 
+
+def hash(mensaje):
+    mensajeHasheado = hl.sha512(mensaje.encode('utf-8'))
+    mensajeHasheadoHex = mensajeHasheado.hexdigest()
+    return mensajeHasheadoHex
+
 # Función para el desafío 1
 
 
@@ -103,5 +113,7 @@ def redCifrado(mensaje, password):
     mensajeCifrado = rotN(mensaje, 8)
     # Luego por vignere con la contraseña heropassword
     mensajeCifrado = vigenere(mensajeCifrado, password)
+    # Luego un cifrado de rot 10, por si las moscas
+    mensajeCifrado = rotN(mensajeCifrado, 10)
     print(mensajeCifrado)
     return mensajeCifrado
