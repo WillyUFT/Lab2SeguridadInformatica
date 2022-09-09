@@ -8,20 +8,17 @@ import cifrados
 import leerTxt as txt
 
 # Acá están las acciones que cada botón debe ejecutar
-
-# Mensaje Hasheado original
-mensajeHasheadoOriginal = ""
-
-
 def AccionesBotones(boton):
+    # Mensaje Hasheado original
+    mensajeHasheadoOriginal = ""
+    
     if boton == "leerTxtEntrada":
         # Se toma el mensaje escrito en la casilla de mensaje
-        msjEntrada = txt.leerTexto('mensajedeentrada.txt')
+        msjEntrada = txt.leerTexto("mensajedeentrada.txt")
         # Se borra lo que pueda estar escrito en la casilla de mensaje encriptado
         mensaje.delete("1.0", "end")
         # Se escribe en la casilla de mensaje encriptado el resultado
-        mensaje.insert(
-            "end", msjEntrada)
+        mensaje.insert("end", msjEntrada)
 
     elif boton == "hacerHash":
         # En este caso no se manda nada, solo se llama a la función
@@ -29,33 +26,29 @@ def AccionesBotones(boton):
         # Se borra lo que pueda estar escrito en la casilla de mensaje encriptado
         mensajeEncriptado.delete("1.0", "end")
         # Se escribe en la casilla de mensaje encriptado el resultado
-        mensajeEncriptado.insert(
-            "end", "Mensaje Hasheado: \n" + str(msjHasheado))
+        mensajeEncriptado.insert("end", "Mensaje Hasheado: \n" + str(msjHasheado))
         mensajeHasheadoOriginal = msjHasheado
         print(mensajeHasheadoOriginal)
         txt.escribirTextoSalida(msjHasheado)
 
     elif boton == "cifradoCompleto":
         # Se toma el mensaje escrito en la casilla de mensaje
-        msjCifrado = cifrados.redCifrado(
-            mensaje.get(1.0, "end-1c"), "pekopeko")
+        msjCifrado = cifrados.redCifrado(mensaje.get(1.0, "end-1c"), "pekopeko")
         # Se borra lo que pueda estar escrito en la casilla de mensaje encriptado
         mensajeEncriptado.delete("1.0", "end")
         # Se escribe en la casilla de mensaje encriptado el resultado
         mensajeEncriptado.insert("end", "Mensaje cifrado: " + msjCifrado)
 
     elif boton == "ComprobarMensaje":
-        print("XD")
-        msjTextoSalida = txt.leerTexto('mensajeseguro.txt')
+        msjTextoSalida = txt.leerTexto("mensajeseguro.txt")
         print(msjTextoSalida)
-        if (msjTextoSalida == mensajeHasheadoOriginal):
+        if msjTextoSalida == mensajeHasheadoOriginal:
             print("XD")
-            msg.showinfo(title="Información",
-                         message="El mensaje no ha sido modificado")
+            msg.showinfo(
+                title="Información", message="El mensaje no ha sido modificado"
+            )
         else:
-            print("XDn't")
-            msg.ERROR(title="Información",
-                      message="El mensaje ha sido modificado")
+            msg.showerror(title="Información", message="El mensaje ha sido modificado")
 
 
 # Creamos la ventana
@@ -85,9 +78,9 @@ botonesEncriptadoLabel = TK.Label(ventana, text="Encriptar mediante: ")
 botonesEncriptadoLabel.place(x=100, y=330, width=190)
 
 # Boton para leer el archivo txt
-TK.Button(ventana, text="Leer archivo .txt", command=lambda: AccionesBotones("leerTxtEntrada")).place(
-    x=100, y=300, width=190
-)
+TK.Button(
+    ventana, text="Leer archivo .txt", command=lambda: AccionesBotones("leerTxtEntrada")
+).place(x=100, y=300, width=190)
 
 # Lado derecho de Aqua
 # Este es el cosito que dice mensaje encriptado
@@ -104,17 +97,23 @@ botonesDesEncriptadoLabel = TK.Label(ventana, text="Desencriptar mediante: ")
 botonesDesEncriptadoLabel.place(x=710, y=300, width=190)
 
 # Boton para el desafío 1
-TK.Button(ventana, text="Cifrado con la red completa", command=lambda: AccionesBotones("cifradoCompleto")).place(
-    x=100, y=355, width=190
-)
+TK.Button(
+    ventana,
+    text="Cifrado con la red completa",
+    command=lambda: AccionesBotones("cifradoCompleto"),
+).place(x=100, y=355, width=190)
 
 # Boton para hacer el hash
-TK.Button(ventana, text="Aplicar Hash", command=lambda: AccionesBotones(
-    "hacerHash")).place(x=710, y=325, width=190)
+TK.Button(
+    ventana, text="Aplicar Hash", command=lambda: AccionesBotones("hacerHash")
+).place(x=710, y=325, width=190)
 
 # Boton para verificar si el mensaje no ha sido modificado
-TK.Button(ventana, text="Comprobar mensaje", command=lambda: AccionesBotones("comprobarMensaje")).place(
-    x=710, y=355, width=190)
+TK.Button(
+    ventana,
+    text="Comprobar mensaje",
+    command=lambda: AccionesBotones("ComprobarMensaje"),
+).place(x=710, y=355, width=190)
 
 
 # Coso para que no se cierre
