@@ -74,7 +74,7 @@ def hash(mensaje):
 def redCifrado(mensaje, password):
     # Primero ciframos el mensaje con el rot 8
     mensajeCifrado = rotN(mensaje, 8)
-    # Luego por vignere con la contraseña heropassword
+    # Luego por vignere con la contraseña que le mandamos dle otro
     mensajeCifrado = vigenere(mensajeCifrado, password)
     # Luego un cifrado de rot 10, por si las moscas
     mensajeCifrado = rotN(mensajeCifrado, 10)
