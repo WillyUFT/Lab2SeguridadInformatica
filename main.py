@@ -1,6 +1,4 @@
 # Vamos a hacer una interfaz para que se vea lindo, importemos tkinter
-from ctypes.wintypes import PINT
-from email import message
 import tkinter as TK
 from tkinter import messagebox as msg
 from turtle import color, title  # Biblioteca para realizar interfaces gráficas
